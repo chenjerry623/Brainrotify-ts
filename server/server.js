@@ -17,6 +17,8 @@ const upload = multer({ storage: storage });
 
 const DURATION = 10;
 
+const CLIPS = 1;
+
 app.use('/videos', express.static(path.join(__dirname, 'uploads', 'combined')));
 
 

@@ -1,9 +1,13 @@
+import NewWindow from 'react-new-window';
+
 import handlePreviousVideo from '../constants/video-navigation/handlePreviousVideo';
 import handleNextVideo from '../constants/video-navigation/handleNextVideo';
-import React from 'react';
 
 import left from './../images/left.png'
 import right from './../images/right.png';
+
+import { AiOutlineClose } from "react-icons/ai"
+import { BiChevronDown, BiChevronUp } from "react-icons/bi"
 
 interface VideoPlayerProps {
     videoUrls: string[],
@@ -24,29 +28,43 @@ const VideoPlayer = (props: VideoPlayerProps) => {
     }
 
     return (
+
         <div>
-        {(props.selectedVideo && !(props.uploading)) && (
-            <div className='display'>
-                <button onClick={handlePreviousVideoCallback} className='leftButton'>
-                    <img className='left' src={left} alt='Next Video' />
-                </button>
+            {(props.selectedVideo && !(props.uploading)) && (
+                <NewWindow>
+                    <div className='player-bg'>
+                        <div className="player-container">
+                            {/*TODO: video isn't centered properly */}
+                            <div className='video-bg'>
+                                <div className='button-container'>
+                                    <div
+                                        onClick={() => handlePreviousVideoCallback()}
+                                        className="prev-button"
+                                    >
+                                        <BiChevronUp size="30" color="#FFFFFF" />
+                                    </div>
 
+                                    <div
+                                        onClick={() => handleNextVideoCallback()}
+                                        className="next-button"
+                                    >
+                                        <BiChevronDown size="30" color="#FFFFFF" />
+                                    </div>
+                                </div>
+                                <video controls src={props.selectedVideo} style={{ height: '100vh' }} loop autoPlay>
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
 
-                <video controls width="500" src={props.selectedVideo} loop autoPlay>
-                    Your browser does not support the video tag.
-                </video>
-
-                <div className='rightDiv'>
-                    <button onClick={handleNextVideoCallback} className='rightButton'>
-                        <img className='right' src={right} alt='Next Video' />
-                    </button>
-                </div>
-            </div>
-        )}
+                        </div>
+                    </div>
+                </NewWindow>
+            )}
         </div>
 
+
     )
-    
+
 }
 
 export default VideoPlayer;
